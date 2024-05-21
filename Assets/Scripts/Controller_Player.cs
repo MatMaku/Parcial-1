@@ -24,15 +24,24 @@ public class Controller_Player : MonoBehaviour
     private bool canMoveLeft, canMoveRight,canJump;
     internal bool onFloor;
 
+    private Animator animator;
+
+    private SpriteRenderer spriteRenderer;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
         rb.constraints = RigidbodyConstraints.FreezePositionX| RigidbodyConstraints.FreezePositionZ|RigidbodyConstraints.FreezeRotation;
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public virtual void FixedUpdate()
     {
+        animator.SetBool("Correr", false);
+        animator.SetBool("EnSuelo", canJump);
+
         if (GameManager.actualPlayer == playerNumber)
         {
             Movement();
@@ -117,10 +126,18 @@ public class Controller_Player : MonoBehaviour
         if (Input.GetKey(KeyCode.A) && canMoveLeft)
         {
                 rb.velocity = new Vector3(1 * -speed , rb.velocity.y, 0);
+
+                animator.SetBool("Correr", true);
+
+                spriteRenderer.flipX = true;
         }
         else if (Input.GetKey(KeyCode.D) && canMoveRight)
         {
                 rb.velocity = new Vector3(1 * speed, rb.velocity.y, 0);
+
+                animator.SetBool("Correr", true);
+
+                spriteRenderer.flipX = false;
         }
         else
         {

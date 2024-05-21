@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
                 //Debug.Log(i.ToString());
             }
         }
-        if (i >= 7)
+        if (i >= targets.Count)
         {
             winCondition = true;
         }
