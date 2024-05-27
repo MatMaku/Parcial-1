@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         Physics.gravity = new Vector3(0, -30, 0);
         gameOver = false;
         winCondition = false;
+        actualPlayer = 0;
         SetConstraits();
     }
 

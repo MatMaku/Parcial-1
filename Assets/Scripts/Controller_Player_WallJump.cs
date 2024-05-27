@@ -5,14 +5,14 @@ using UnityEngine;
 public class Controller_Player_WallJump : Controller_Player
 {
     private bool isWallSliding;
-    public float WallSlidingSpeed = 2f;
+    public float WallSlidingSpeed = 1f;
 
     private bool isWallJumping;
     private float WallJumpingDirection;
-    private float WallJumpingTime = 0.7f;
-    public float WallJumpingCounter;
-    public float WallJumpingDuration = 1f;
-    private Vector2 WallJumpingPower = new Vector2(5f,10f);
+    public float WallJumpingTime = 0.2f;
+    private float WallJumpingCounter;
+    public float WallJumpingDuration = 0.4f;
+    private Vector2 WallJumpingPower = new Vector2(8f,12f);
 
 
     public override void FixedUpdate()
@@ -22,8 +22,12 @@ public class Controller_Player_WallJump : Controller_Player
 
         animator.SetBool("EnPared", isWallSliding);
 
-        base.FixedUpdate();
+        if (!isWallJumping ) 
+        {
+            base.FixedUpdate();
+        }
     }
+
 
     private void WallSliding()
     {
@@ -61,10 +65,12 @@ public class Controller_Player_WallJump : Controller_Player
             if (SomethingRight())
             {
                 WallJumpingDirection = -1;
+                spriteRenderer.flipX = false;
             }
             else if (SomethingLeft())
             {
                 WallJumpingDirection = 1;
+                spriteRenderer.flipX = true;
             }
 
             WallJumpingCounter = WallJumpingTime;

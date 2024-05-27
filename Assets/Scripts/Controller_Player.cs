@@ -28,7 +28,7 @@ public class Controller_Player : MonoBehaviour
 
     public Animator animator;
 
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
 
     private void Start()
     {
