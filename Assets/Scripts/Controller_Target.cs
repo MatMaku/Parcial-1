@@ -8,9 +8,12 @@ public class Controller_Target : MonoBehaviour
 
     public bool playerOnTarget;
 
+    private Animator animator;
+
     private void Start()
     {
         playerOnTarget = false;
+        animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,6 +22,7 @@ public class Controller_Target : MonoBehaviour
         {
             if (other.GetComponent<Controller_Player>().playerNumber == targetNumber)
             {
+                animator.SetBool("Activa", true);
                 playerOnTarget = true;
                 //Debug.Log("P on T");
             }
@@ -31,6 +35,7 @@ public class Controller_Target : MonoBehaviour
         {
             if (other.GetComponent<Controller_Player>().playerNumber == targetNumber)
             {
+                animator.SetBool("Activa", false);
                 playerOnTarget = false;
                 //Debug.Log("P off T");
             }

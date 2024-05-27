@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,7 +42,11 @@ public class GameManager : MonoBehaviour
                 //Debug.Log(i.ToString());
             }
         }
-        if (i >= targets.Count)
+        if (i >= targets.Count && SceneManager.GetActiveScene().buildIndex + 1 <= 3)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else if (i >= targets.Count)
         {
             winCondition = true;
         }
@@ -53,7 +58,7 @@ public class GameManager : MonoBehaviour
         {
             if (actualPlayer <= 0)
             {
-                actualPlayer = 6;
+                actualPlayer = players.Count - 1;
                 SetConstraits();
             }
             else
@@ -64,7 +69,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (actualPlayer >= 6)
+            if (actualPlayer >= players.Count - 1)
             {
                 actualPlayer = 0;
                 SetConstraits();

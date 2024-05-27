@@ -11,6 +11,8 @@ public class Controller_Player : MonoBehaviour
 
     public int playerNumber;
 
+    public LayerMask layersToIgnore;
+
     public Rigidbody rb;
 
     private BoxCollider col;
@@ -24,7 +26,7 @@ public class Controller_Player : MonoBehaviour
     private bool canMoveLeft, canMoveRight,canJump;
     internal bool onFloor;
 
-    private Animator animator;
+    public Animator animator;
 
     private SpriteRenderer spriteRenderer;
 
@@ -111,14 +113,14 @@ public class Controller_Player : MonoBehaviour
     {
         Ray landingRay = new Ray(new Vector3(transform.position.x,transform.position.y-(transform.localScale.y / 2.2f),transform.position.z), Vector3.right);
         Debug.DrawRay(landingRay.origin, landingRay.direction, Color.green);
-        return Physics.Raycast(landingRay, out rightHit, transform.localScale.x/1.8f);
+        return Physics.Raycast(landingRay, out rightHit, transform.localScale.x / 2.5f, ~layersToIgnore);
     }
 
     public virtual bool SomethingLeft()
     {
         Ray landingRay = new Ray(new Vector3(transform.position.x, transform.position.y - (transform.localScale.y/2.2f), transform.position.z), Vector3.left);
         Debug.DrawRay(landingRay.origin, landingRay.direction, Color.green);
-        return Physics.Raycast(landingRay, out leftHit, transform.localScale.x/1.8f);
+        return Physics.Raycast(landingRay, out leftHit, transform.localScale.x / 2.5f, ~layersToIgnore);
     }
 
     private void Movement()
@@ -171,7 +173,6 @@ public class Controller_Player : MonoBehaviour
         {
             onFloor = true;
         }
-
     }
 
     private void OnCollisionExit(Collision collision)
